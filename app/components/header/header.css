@@ -1,0 +1,21 @@
+header {
+    position: sticky;
+    top: 8px;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 100px;
+}
+a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+}
+a:hover {
+    text-decoration: underline;
+    color: royalblue;
+    background-color: rgba(100, 100, 100, 0.1);
+    border-radius: 100px;
+}
