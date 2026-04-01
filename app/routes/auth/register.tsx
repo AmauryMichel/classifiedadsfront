@@ -14,10 +14,24 @@ export function meta({}: Route.MetaArgs) {
 let authentificationService: AuthentificationService = new AuthentificationService
 
 export default function Register() {
+  const registerUser = (event: any) => {
+    event.preventDefault()
+
+    let username = event.target.username.value
+    let password = event.target.password.value
+    let first_name = event.target.firstname.value
+    let last_name = event.target.lastname.value
+    let newUser = new User(username, first_name, last_name, password)
+
+    authentificationService.createUser(newUser).then(response => {
+      console.log(response.data.results)
+    })
+  }
+
   return (
     <div>
       <h2>Create a new account</h2> 
-      <form className="formClass">
+      <form className="formClass" onSubmit={registerUser}>
         <input className="formInput" id="username" type="email" placeholder="Email Address" required/>
         <input className="formInput" id="password" type="password" placeholder="Password" required/>
         <input className="formInput" id="firstname" type="text" placeholder="First Name" required/>
@@ -25,8 +39,6 @@ export default function Register() {
         
         <button className="submitButton" type="submit">Submit</button>
       </form>
-
-      <button>Test Back</button>
   </div>
   )
 }
