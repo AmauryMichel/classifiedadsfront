@@ -5,8 +5,8 @@ import { UserLogin } from "~/types/userLogin";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Register" },
-    { name: "description", content: "Register Page" },
+    { title: "Login" },
+    { name: "description", content: "Login Page" },
   ];
 }
 
@@ -22,7 +22,8 @@ export default function Login() {
     const newUser = new UserLogin(email, password)
 
     authentificationService.login(newUser).then(response => {
-      console.log(response)
+      const newToken = response.data['access']
+      localStorage.setItem("token", newToken)
     })
   }
 
