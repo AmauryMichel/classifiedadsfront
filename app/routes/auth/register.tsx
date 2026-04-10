@@ -1,8 +1,9 @@
+import { useNavigate } from "react-router";
+
 import type { Route } from "../auth/+types/register";
 
-import { User } from "~/types/user";
-
 import { AuthentificationService } from "~/services/authentification-service";
+import { User } from "~/types/user";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -14,17 +15,19 @@ export function meta({}: Route.MetaArgs) {
 let authentificationService: AuthentificationService = new AuthentificationService
 
 export default function Register() {
+  let navigate = useNavigate();
+
   const registerUser = (event: any) => {
     event.preventDefault()
 
-    let email = event.target.email.value
-    let password = event.target.password.value
-    let first_name = event.target.firstname.value
-    let last_name = event.target.lastname.value
-    let newUser = new User(email, first_name, last_name, password)
+    const email = event.target.email.value
+    const password = event.target.password.value
+    const first_name = event.target.firstname.value
+    const last_name = event.target.lastname.value
+    const newUser = new User(email, first_name, last_name, password)
 
     authentificationService.register(newUser).then(response => {
-      console.log(response.data.results)
+      navigate('/login')
     })
   }
 
