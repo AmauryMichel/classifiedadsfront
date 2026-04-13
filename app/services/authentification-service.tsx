@@ -1,5 +1,6 @@
-import axios from "axios"
+import { axiosInterceptor } from "~/core/interceptor"
 import { User } from "~/types/user"
+import type { UserLogin } from "~/types/userLogin"
 
 export class AuthentificationService {
     private baseUrl = "http://localhost:8000"
@@ -9,10 +10,10 @@ export class AuthentificationService {
     private loginUrl = "login"
 
     register(user: User) {
-        return axios.post(this.baseUrl + "/" + this.authUrl + "/" + this.registerUrl + "/", user)
+        return axiosInterceptor.post(this.baseUrl + "/" + this.authUrl + "/" + this.registerUrl + "/", user)
     }
 
     login(user: UserLogin) {
-        return axios.post(this.baseUrl + "/" + this.authUrl + "/" + this.loginUrl + "/", user)
+        return axiosInterceptor.post(this.baseUrl + "/" + this.authUrl + "/" + this.loginUrl + "/", user)
     }
 }

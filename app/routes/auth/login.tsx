@@ -1,4 +1,4 @@
-import type { Route } from "./+types/register";
+import type { Route } from "./+types/login";
 
 import { AuthentificationService } from "~/services/authentification-service";
 import { UserLogin } from "~/types/userLogin";
