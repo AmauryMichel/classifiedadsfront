@@ -23,7 +23,9 @@ export default function Login() {
 
     authentificationService.login(newUser).then(response => {
       const newToken = response.data['access']
+      const userId = response.data['id']
       localStorage.setItem("token", newToken)
+      localStorage.setItem("userId", userId)
     })
   }
 
