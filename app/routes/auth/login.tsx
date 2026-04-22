@@ -19,7 +19,7 @@ export default function Login() {
 
     const email = event.target.email.value
     const password = event.target.password.value
-    const newUser = new UserLogin(email, password)
+    const newUser = User.userLogin(email, password)
 
     authentificationService.login(newUser).then(response => {
       const newToken = response.data['access']

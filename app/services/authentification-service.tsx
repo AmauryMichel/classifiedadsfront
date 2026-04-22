@@ -1,6 +1,5 @@
 import { axiosInterceptor } from "~/core/interceptor"
 import { User } from "~/types/user"
-import type { UserLogin } from "~/types/userLogin"
 
 export class AuthentificationService {
     private baseUrl = "http://localhost:8000"
@@ -12,7 +11,7 @@ export class AuthentificationService {
         return axiosInterceptor.post(`${this.baseUrl}/${this.authUrl}/${this.registerUrl}/`, user)
     }
 
-    login(user: UserLogin) {
+    login(user: User) {
         return axiosInterceptor.post(`${this.baseUrl}/${this.authUrl}/${this.loginUrl}/`, user)
     }
 }

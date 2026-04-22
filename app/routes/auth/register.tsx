@@ -24,7 +24,7 @@ export default function Register() {
     const password = event.target.password.value
     const first_name = event.target.firstname.value
     const last_name = event.target.lastname.value
-    const newUser = new User(email, first_name, last_name, password)
+    const newUser = User.userRegister(email, first_name, last_name, password)
 
     authentificationService.register(newUser).then(response => {
       navigate('/login')
