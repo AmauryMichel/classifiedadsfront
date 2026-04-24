@@ -1,7 +1,7 @@
 import type { Route } from "./+types/login";
 
 import { AuthentificationService } from "~/services/authentification-service";
-import { UserLogin } from "~/types/userLogin";
+import { User } from "~/types/user";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -24,8 +24,14 @@ export default function Login() {
     authentificationService.login(newUser).then(response => {
       const newToken = response.data['access']
       const userId = response.data['id']
+      const firstName = response.data['first_name']
+      const lastName = response.data['last_name']
+
+      const user = User.userInfo(userId, email, firstName, lastName)
+
       localStorage.setItem("token", newToken)
       localStorage.setItem("userId", userId)
+      localStorage.setItem("user", JSON.stringify(user))
     })
   }
 
