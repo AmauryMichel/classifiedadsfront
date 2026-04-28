@@ -3,14 +3,15 @@ import { Category } from "./category"
 
 export class Post {
     id: number
-    creator: User
+    creator: number
+    creator_data: User
     title: string
     text: string
     active: boolean
     creation_date: string
     categories: Array<Category>
 
-    constructor(creator: User, title: string, text: string, categories: Array<Category>) {
+    constructor(creator: number, title: string, text: string, categories: Array<Category>) {
         this.creator = creator
         this.title = title
         this.text = text
