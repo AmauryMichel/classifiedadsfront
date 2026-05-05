@@ -9,9 +9,10 @@ export class Post {
     text: string
     active: boolean
     creation_date: string
-    categories: Array<Category>
+    categories: Array<number>
+    categories_info: Array<Category>
 
-    constructor(creator: number, title: string, text: string, categories: Array<Category>) {
+    constructor(creator: number, title: string, text: string, categories: Array<number>) {
         this.creator = creator
         this.title = title
         this.text = text
