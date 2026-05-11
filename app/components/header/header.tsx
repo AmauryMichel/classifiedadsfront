@@ -1,14 +1,39 @@
 import { Link } from "react-router";
 import "./header.css"
+import { useEffect, useState } from "react";
 
 export default function Header() {
-  return (
-        <header>
-            <nav className="navHeader">
-                <Link to="/">Home</Link>
-                <Link to="/posts">Post List</Link>
-                <Link to="/profile">Profile</Link>
-            </nav>
+
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+
+    useEffect(() => {
+        setIsLoggedIn(localStorage.getItem("token") != null)
+    }, []);
+
+    function logOut() {
+        localStorage.removeItem("token")
+        localStorage.removeItem("userId")
+        localStorage.removeItem("user")
+        window.location.href = "/"
+    }
+
+    return (
+        <header id="header">
+            <div id="headerLeft">
+                <nav className="navHeader">
+                    <Link className="headerLink" to="/">Home</Link>
+                    <Link className="headerLink" to="/posts">Post List</Link>
+                </nav>
+            </div>
+            <div id="headerRight">
+                {isLoggedIn
+                    ? <>
+                        <Link className="headerLink" to="/profile">Profile</Link>
+                        <a className="headerLink" href="#" onClick={logOut}>Log out</a>
+                    </>
+                    : <Link to="/login">Log in</Link>
+                }
+            </div>
         </header>
     );
 }
