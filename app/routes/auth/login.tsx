@@ -3,7 +3,7 @@ import type { Route } from "./+types/login";
 import { AuthentificationService } from "~/services/authentification-service";
 import { User } from "~/types/user";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "Login" },
     { name: "description", content: "Login Page" },
@@ -32,18 +32,20 @@ export default function Login() {
       localStorage.setItem("token", newToken)
       localStorage.setItem("userId", userId)
       localStorage.setItem("user", JSON.stringify(user))
+
+      window.location.href = "/profile"
     })
   }
 
   return (
-    <div>
-      <h2>Login to your account</h2> 
+    <>
+      <h2>Login to your account</h2>
       <form className="formClass" onSubmit={login}>
-        <input className="formInput" id="email" type="email" placeholder="Email Address" required/>
-        <input className="formInput" id="password" type="password" placeholder="Password" required/>
-        
+        <input className="formInput" id="email" type="email" placeholder="Email Address" required />
+        <input className="formInput" id="password" type="password" placeholder="Password" required />
+
         <button className="submitButton" type="submit">Submit</button>
       </form>
-  </div>
+    </>
   )
 }
