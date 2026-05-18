@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 export default function Header() {
 
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+    const [userId, setUserId] = useState<String>()
 
     useEffect(() => {
         setIsLoggedIn(localStorage.getItem("token") != null)
+        setUserId(localStorage.getItem("userId") || "")
     }, []);
 
     function logOut() {
@@ -28,7 +30,7 @@ export default function Header() {
             <div id="headerRight">
                 {isLoggedIn
                     ? <>
-                        <Link className="headerLink" to="/profile">Profile</Link>
+                        <Link className="headerLink" to={`/user/${userId}`}>Profile</Link>
                         <a className="headerLink" href="#" onClick={logOut}>Log out</a>
                     </>
                     : <Link to="/login">Log in</Link>
