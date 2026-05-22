@@ -1,7 +1,7 @@
 import { axiosInterceptor } from "~/core/interceptor"
 
 export class UserService {
-    private baseUrl = "http://localhost:8000"
+    private baseUrl = import.meta.env.VITE_API_URL
     private usersUrl = "users"
     private postsUrl = "posts"
 

@@ -2,7 +2,7 @@ import { axiosInterceptor } from "~/core/interceptor"
 import { Post } from "~/types/post"
 
 export class PostService {
-    private baseUrl = "http://localhost:8000"
+    private baseUrl = import.meta.env.VITE_API_URL
     private postsUrl = "posts"
 
     getPosts() {

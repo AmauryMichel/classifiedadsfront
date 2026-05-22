@@ -2,7 +2,7 @@ import { axiosInterceptor } from "~/core/interceptor"
 import { User } from "~/types/user"
 
 export class AuthentificationService {
-    private baseUrl = "http://localhost:8000"
+    private baseUrl = import.meta.env.VITE_API_URL
     private authUrl = "auth"
     private registerUrl = "register"
     private loginUrl = "login"
