@@ -5,7 +5,11 @@ export class UserService {
     private usersUrl = "users"
     private postsUrl = "posts"
 
-    getUserPosts(userId: number) {
+    getUser(userId: string) {
+        return axiosInterceptor.get(`${this.baseUrl}/${this.usersUrl}/${userId}`)
+    }
+
+    getUserPosts(userId: string) {
         return axiosInterceptor.get(`${this.baseUrl}/${this.usersUrl}/${userId}/${this.postsUrl}/`)
     }
 }

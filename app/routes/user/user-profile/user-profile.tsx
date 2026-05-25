@@ -25,7 +25,6 @@ export default function UserProfile() {
 
     const [userData, setUserData] = useState<User>()
     const [posts, setPosts] = useState<Post[]>([])
-    const [allPosts, setAllPosts] = useState<Post[]>([])
 
     useEffect(() => {
         if (id == undefined) return
@@ -36,7 +35,6 @@ export default function UserProfile() {
 
         userService.getUserPosts(id).then(response => {
             setPosts(response.data)
-            setAllPosts(response.data)
         })
     }, [])
 
@@ -46,6 +44,18 @@ export default function UserProfile() {
                 {userData?.first_name} <br />
                 {userData?.last_name} <br />
                 Number of posts: {posts.length}
+            </div>
+
+            <div id="postList">
+                {posts.map(post => (
+                    <Link to={`/posts/${post.id}`} key={post.id}>
+                        <div className="post">
+                            <b>{post.title}</b>
+                            <hr />
+                            {post.text}
+                        </div>
+                    </Link>
+                ))}
             </div>
         </>
     )
