@@ -2,7 +2,7 @@ import type { Route } from "./+types/post-list";
 
 import { Post } from "~/types/post";
 
-import { UserService } from "~/services/user-service";
+import { PostService } from "~/services/post-service";
 import { CategoryService } from "~/services/category-service";
 import { useEffect, useState } from "react";
 import type { Category } from "~/types/category";
@@ -17,7 +17,7 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-let userService: UserService = new UserService()
+let postService: PostService = new PostService()
 let categoryService: CategoryService = new CategoryService()
 
 export default function PostList() {
@@ -36,11 +36,9 @@ export default function PostList() {
   }
 
   useEffect(() => {
-    const userId = Number(localStorage.getItem('userId'))
-
-    userService.getUserPosts(userId).then(response => {
-      setPosts(response.data)
-      setAllPosts(response.data)
+    postService.getPosts().then(response => {
+      setPosts(response.data.results)
+      setAllPosts(response.data.results)
     })
 
     categoryService.getCategories().then(response => {
@@ -62,8 +60,8 @@ export default function PostList() {
 
       <div id="postList">
         {posts.map(post => (
-          <Link to={`/posts/${post.id}`}>
-            <div className="post" key={post.id}>
+          <Link to={`/posts/${post.id}`} key={post.id}>
+            <div className="post">
               <b>{post.title}</b>
               <hr />
               {post.text}
