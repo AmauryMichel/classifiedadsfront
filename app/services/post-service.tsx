@@ -9,11 +9,15 @@ export class PostService {
         return axiosInterceptor.get(`${this.baseUrl}/${this.postsUrl}/`)
     }
 
-    getPost(id: number) {
-        return axiosInterceptor.get(`${this.baseUrl}/${this.postsUrl}/${id}`)
+    getPost(postId: number) {
+        return axiosInterceptor.get(`${this.baseUrl}/${this.postsUrl}/${postId}`)
     }
 
     createPost(post: Post) {
         return axiosInterceptor.post(`${this.baseUrl}/${this.postsUrl}/`, post)
+    }
+
+    editPost(postId: string, newPostData: Post) {
+        return axiosInterceptor.patch(`${this.baseUrl}/${this.postsUrl}/${postId}/`, newPostData) 
     }
 }
