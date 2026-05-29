@@ -19,7 +19,9 @@ export default function PostDetail() {
 
     const { id } = useParams();
     const [post, setPost] = useState<Post>()
-    
+    const [canEdit, setCanEdit] = useState<Boolean>(false)
+    const [editing, setEditing] = useState<Boolean>(false)
+
     useEffect(() => {
         // TODO handle error
         if (id == undefined) return
@@ -27,13 +29,46 @@ export default function PostDetail() {
         postService.getPost(parseInt(id)).then(response => {
             console.log(response.data)
             setPost(response.data)
+
+            setCanEdit(localStorage.getItem("userId") == response.data.creator_data.id)
         })
     }, [])
 
+    function editPost() {
+        setEditing(!editing)
+
+        if (editing == true) {
+            postService.editPost(id!, post!).then(response => {
+                console.log(response)
+            })
+        }
+    }
+
+    function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
+        setPost({ ...post!, [e.target.name]: e.target.value })
+    }
+
     return (
         <>
-            {post?.title}<br/>
-            {post?.text}
+            {editing ? (
+                <div>
+                    <input type="text" name="title" value={post?.title} onChange={onChangeHandler} /><br />
+                    <input type="text" name="text" value={post?.text} onChange={onChangeHandler} />
+                    Editing
+                </div>
+            ) : (
+                <div>
+                    {post?.title}<br />
+                    {post?.text}
+                </div>
+            )}
+
+            {canEdit && (
+                <>
+                    <button onClick={editPost}>Edit</button> <br />
+                    <button>Delete</button>
+                </>
+            )}
         </>
     )
 }
