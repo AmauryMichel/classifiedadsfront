@@ -27,7 +27,6 @@ export default function PostDetail() {
         if (id == undefined) return
 
         postService.getPost(parseInt(id)).then(response => {
-            console.log(response.data)
             setPost(response.data)
 
             setCanEdit(localStorage.getItem("userId") == response.data.creator_data.id)
@@ -42,6 +41,12 @@ export default function PostDetail() {
                 console.log(response)
             })
         }
+    }
+
+    function deletePost() {
+        if (!window.confirm("Are you sure you wish to delete this post?")) return
+        
+        postService.deletePost(id!)
     }
 
     function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
@@ -66,7 +71,7 @@ export default function PostDetail() {
             {canEdit && (
                 <>
                     <button onClick={editPost}>Edit</button> <br />
-                    <button>Delete</button>
+                    <button onClick={deletePost}>Delete</button>
                 </>
             )}
         </>

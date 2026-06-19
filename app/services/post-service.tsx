@@ -20,4 +20,8 @@ export class PostService {
     editPost(postId: string, newPostData: Post) {
         return axiosInterceptor.patch(`${this.baseUrl}/${this.postsUrl}/${postId}/`, newPostData) 
     }
+
+    deletePost(postId: string) {
+        return axiosInterceptor.delete(`${this.baseUrl}/${this.postsUrl}/${postId}/`)
+    }
 }
