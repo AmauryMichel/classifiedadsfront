@@ -37,8 +37,8 @@ export default function PostList() {
 
   useEffect(() => {
     postService.getPosts().then(response => {
-      setPosts(response.data.results)
-      setAllPosts(response.data.results)
+      setPosts(response.data)
+      setAllPosts(response.data)
     })
 
     categoryService.getCategories().then(response => {
