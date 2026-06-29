@@ -36,7 +36,7 @@ export default function PostCreate() {
     const newPost = new Post(userId, title, text, categoriesArray)
 
     postService.createPost(newPost).then(response => {
-      console.log(response)
+      window.location.href = "/posts/" + response.data.id
     })
   }
 
