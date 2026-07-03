@@ -1,4 +1,5 @@
 import axios from "axios"
+import { toast } from "react-toastify";
 
 export const axiosInterceptor = axios.create()
 
@@ -12,5 +13,16 @@ axiosInterceptor.interceptors.request.use(
     }
     
     return config
+  }
+)
+
+// Handling errors
+axiosInterceptor.interceptors.response.use(
+  res => {
+    return res
+  },
+  error => {
+    toast.error(error.response.data.detail)
+    return Promise.reject(error);
   }
 )
