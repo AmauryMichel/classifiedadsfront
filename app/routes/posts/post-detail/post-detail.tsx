@@ -46,7 +46,9 @@ export default function PostDetail() {
     function deletePost() {
         if (!window.confirm("Are you sure you wish to delete this post?")) return
         
-        postService.deletePost(id!)
+        postService.deletePost(id!).then(response => {
+            window.location.href = "/posts"
+        })
     }
 
     function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
