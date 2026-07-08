@@ -1,10 +1,12 @@
-import type { Route } from "./+types/post-detail";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
+import type { Route } from "./+types/post-detail";
 import { Post } from "~/types/post";
 
 import { PostService } from "~/services/post-service";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
 
 export function meta({ }: Route.MetaArgs) {
     return [
@@ -21,6 +23,7 @@ export default function PostDetail() {
     const [post, setPost] = useState<Post>()
     const [canEdit, setCanEdit] = useState<Boolean>(false)
     const [editing, setEditing] = useState<Boolean>(false)
+    let navigate = useNavigate()
 
     useEffect(() => {
         // TODO handle error
@@ -45,9 +48,11 @@ export default function PostDetail() {
 
     function deletePost() {
         if (!window.confirm("Are you sure you wish to delete this post?")) return
+
         
         postService.deletePost(id!).then(response => {
-            window.location.href = "/posts"
+            toast.success("Post successfully deleted")
+            navigate("/posts")
         })
     }
 
