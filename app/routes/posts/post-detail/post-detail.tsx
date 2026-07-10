@@ -8,6 +8,8 @@ import { Post } from "~/types/post";
 
 import { PostService } from "~/services/post-service";
 
+import './post-detail.css'
+
 export function meta({ }: Route.MetaArgs) {
     return [
         { title: "Post Detail" },
@@ -48,7 +50,6 @@ export default function PostDetail() {
 
     function deletePost() {
         if (!window.confirm("Are you sure you wish to delete this post?")) return
-
         
         postService.deletePost(id!).then(response => {
             toast.success("Post successfully deleted")
@@ -62,25 +63,28 @@ export default function PostDetail() {
 
     return (
         <>
-            {editing ? (
-                <div>
-                    <input type="text" name="title" value={post?.title} onChange={onChangeHandler} /><br />
-                    <input type="text" name="text" value={post?.text} onChange={onChangeHandler} />
-                    Editing
+            <div className="postBody">
+                <div className="postTitle">
+                    {editing ?
+                        (<input type="text" name="title" value={post?.title} onChange={onChangeHandler} />) :
+                        (<>{post?.title}</>)
+                    }
+                    <hr />
                 </div>
-            ) : (
-                <div>
-                    {post?.title}<br />
-                    {post?.text}
-                </div>
-            )}
+                <div className="postContent">
+                    {editing ?
+                        (<input type="text" name="text" value={post?.text} onChange={onChangeHandler} />) :
+                        (<>{post?.text}</>)
+                    }
 
-            {canEdit && (
-                <>
-                    <button onClick={editPost}>Edit</button> <br />
-                    <button onClick={deletePost}>Delete</button>
-                </>
-            )}
+                    {canEdit && (
+                        <div className="settingsButton">
+                            <button id="editButton" onClick={editPost}>Edit</button> <br />
+                            <button id="deleteButton" onClick={deletePost}>Delete</button>
+                        </div>
+                    )}
+                </div>
+            </div>
         </>
     )
 }
